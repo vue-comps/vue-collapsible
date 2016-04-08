@@ -1,13 +1,13 @@
-# collapsible
+# vue-collapsible
 
 A simple collapsible / accordion
 
-### [See it in action](https://vue-comps.github.io/collapsible)
+### [See it in action](https://vue-comps.github.io/vue-collapsible)
 
 # Install
 
 ```sh
-npm install --save-dev collapsible
+npm install --save-dev vue-collapsible/
 ```
 or include `build/bundle.js`
 
@@ -15,8 +15,8 @@ or include `build/bundle.js`
 ```coffee
 # in your component
 components:
-  "collapsible": require("collapsible")
-  "collapsible-entry": require("collapsible-entry")
+  "collapsible": require("vue-collapsible/collapsible")
+  "collapsible-entry": require("vue-collapsible/collapsible-entry")
 # or, when using bundle.js
 components:
   "collapsible": window.vueComps.collapsible
