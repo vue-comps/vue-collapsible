@@ -22,6 +22,9 @@ components:
   "collapsible": window.vueComps.collapsible
   "collapsible-entry": window.vueComps.collapsibleEntry
 ```
+
+For examples see `dev/`
+
 #### Props
 Collapsible
 
@@ -34,8 +37,8 @@ Collapsible-entry
 | Name | type | default | description |
 | ---:| --- | ---| --- |
 | is-active | Boolean | false | (two-way) is child opened |
-| fadeIn | function | no animation | used to animate the child. Arguments: `{el}` |
-| fadeOut | function | no animation | used to animate the child. Arguments: `{el}` |
+| fade-in | function | no animation | used to animate the child. Arguments: `{el}` |
+| fade-out | function | no animation | used to animate the child. Arguments: `{el}` |
 
 # Development
 Clone repository

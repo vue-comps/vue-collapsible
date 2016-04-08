@@ -8,7 +8,7 @@
     "email": "paul.pflugradt@gmail.com"
   },
   "license": "MIT",
-  "main": "drag-handle.js",
+  "main": "collapsible.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/vue-comps/vue-collapsible"
