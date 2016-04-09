@@ -1,6 +1,6 @@
 // out: ..
 <template lang="jade">
-ul.vc-collapsible
+ul(:class="[class]")
   slot No content
 </template>
 
@@ -10,6 +10,9 @@ module.exports =
     "accordion":
       type: Boolean
       default: false
+    "class":
+      type: String
+      default: "collapsible"
   methods:
     closeAll: ->
       @$broadcast "close"
@@ -19,5 +22,6 @@ module.exports =
         @$broadcast "close", sender
       return true
     beforeClose: -> true
-
+    opened: -> true
+    closed: -> true
 </script>

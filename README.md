@@ -16,11 +16,11 @@ or include `build/bundle.js`
 # in your component
 components:
   "collapsible": require("vue-collapsible/collapsible")
-  "collapsible-entry": require("vue-collapsible/collapsible-entry")
+  "collapsible-item": require("vue-collapsible/collapsible-item")
 # or, when using bundle.js
 components:
   "collapsible": window.vueComps.collapsible
-  "collapsible-entry": window.vueComps.collapsibleEntry
+  "collapsible-item": window.vueComps.collapsibleItem
 ```
 
 For examples see `dev/`
@@ -31,14 +31,18 @@ Collapsible
 | Name | type | default | description |
 | ---:| --- | ---| --- |
 | accordion | Boolean | false | only one child opened at a time |
+| class | String | collapsible | class of the `ul`|
 
-Collapsible-entry
+Collapsible-item
 
 | Name | type | default | description |
 | ---:| --- | ---| --- |
-| is-active | Boolean | false | (two-way) is child opened |
-| fade-in | function | no animation | used to animate the child. Arguments: `{el}` |
-| fade-out | function | no animation | used to animate the child. Arguments: `{el}` |
+| is-opened | Boolean | false | (two-way) is child opened |
+| transition-in | function | no animation | used to animate the child. Arguments: `{el}` |
+| transition-out | function | no animation | used to animate the child. Arguments: `{el}` |
+| item-class | String | collapsible-item | class of the `li`|
+| header-class | String | collapsible-header | class of the header `div`|
+| body-class | String | collapsible-body | class of the body `div`|
 
 # Development
 Clone repository

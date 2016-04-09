@@ -2,24 +2,24 @@
 .container
   p collapsible
   collapsible
-    collapsible-entry
+    collapsible-item
       p(slot="header") header1
       p body 1
-    collapsible-entry
+    collapsible-item
       p(slot="header") header2
       p body 2
-    collapsible-entry
+    collapsible-item
       p(slot="header") header3
       p body 3
   p accordion
   collapsible(accordion)
-    collapsible-entry
+    collapsible-item
       p(slot="header") header1
       p body 1
-    collapsible-entry(is-active)
+    collapsible-item(is-active)
       p(slot="header") header2
       p body 2
-    collapsible-entry
+    collapsible-item
       p(slot="header") header3
       p body 3
   a(href="https://github.com/vue-comps/vue-collapsible/blob/master/dev/basic.vue") source
@@ -29,7 +29,7 @@
 module.exports =
   components:
     "collapsible" : require "../src/collapsible.vue"
-    "collapsible-entry" : require "../src/collapsible-entry.vue"
+    "collapsible-item" : require "../src/collapsible-item.vue"
 
 </script>
 
@@ -38,17 +38,17 @@ module.exports =
   position absolute
   left 250px
   top 40px
-.vc-collapsible
+.collapsible
   border 1px solid black
   width 150px
   list-style-type: none
   padding 0
   div
     padding-left 30px
-  .vc-collapsible-entry
+  .collapsible-item
     border-bottom 1px solid black
-  .vc-collapsible-body
+  .collapsible-body
     border-top 1px dashed black
-  .vc-collapsible-header
+  .collapsible-header
     cursor pointer
 </style>
