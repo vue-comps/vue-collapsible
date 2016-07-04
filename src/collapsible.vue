@@ -1,27 +1,40 @@
 // out: ..
-<template lang="jade">
-ul(:class="[class]")
+<template lang="pug">
+ul(
+  :class="[class]"
+  )
   slot No content
 </template>
 
 <script lang="coffee">
 module.exports =
+
   props:
+    "transitionIn":
+      type: Function
+      default: ({cb}) -> cb()
+    "transitionOut":
+      type: Function
+      default: ({cb}) -> cb()
     "accordion":
       type: Boolean
       default: false
     "class":
       type: String
       default: "collapsible"
+    "itemClass":
+      type: String
+      default: "collapsible-item"
+    "headerClass":
+      type: String
+      default: "collapsible-header"
+    "bodyClass":
+      type: String
+      default: "collapsible-body"
+
   methods:
-    closeAll: ->
-      @$broadcast "close"
-  events:
-    beforeOpen: (sender) ->
-      if @accordion
-        @$broadcast "close", sender
-      return true
-    beforeClose: -> true
-    opened: -> true
-    closed: -> true
+    closeAll: (sender) ->
+      for child in @$children
+        if child.isCollapsibleItem and not child.stayOpen
+          child.close(sender)
 </script>

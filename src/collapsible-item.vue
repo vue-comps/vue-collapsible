@@ -1,74 +1,71 @@
 // out: ..
-<template lang="jade">
-li(:class="[itemClass, opened ? 'opened': '']")
+<template lang="pug">
+li(
+  :class="itemClass"
+  )
   div(
-    @click="toggle | notPrevented | prevent",
-    :class="[headerClass]"
+    :class="headerClass",
+    @click="toggle"
     )
     slot(name="header") No header
   div(
     v-el:body,
-    :style="{display:display}",
-    :class="[bodyClass]"
+    v-if="isOpened",
+    :class="bodyClass"
     )
     slot No body
 </template>
 
 <script lang="coffee">
-
 module.exports =
   mixins: [
     require("vue-mixins/isOpened")
   ]
 
-  filters:
-    notPrevented: require("vue-filters/notPrevented")
-    prevent: require("vue-filters/prevent")
-
   props:
-    "transitionIn":
-      type: Function
-      default: ({cb}) -> cb()
-    "transitionOut":
-      type: Function
-      default: ({cb}) -> cb()
-    "itemClass":
-      type: String
-      default: "collapsible-item"
-    "headerClass":
-      type: String
-      default: "collapsible-header"
-    "bodyClass":
-      type: String
-      default: "collapsible-body"
+    "stayOpen":
+      type: Boolean
+      default: false
+
+  computed:
+    itemClass: ->
+      tmp = [@$parent.itemClass]
+      if @isOpened
+        tmp.push "active"
+      return tmp
+    headerClass: ->
+      tmp = [@$parent.headerClass]
+      if @isOpened
+        tmp.push "active"
+      return tmp
+    bodyClass: -> [@$parent.bodyClass]
 
   data: ->
-    display: if @isActive then "block" else "none"
+    isCollapsibleItem: true
 
   methods:
     show: ->
       @setOpened()
-      @display = "block"
-      @$dispatch "beforeOpen", @
-      @transitionIn el: @$els.body, cb: =>
-        @$dispatch "opened"
+      @$emit "before-open", @
+      @$parent.transitionIn el: @$els.body, cb: =>
+        @$emit "opened", @
     hide: ->
-      @$dispatch "beforeClose", @
-      @transitionOut el: @$els.body, cb: =>
+      @$emit "before-close", @
+      @$parent.transitionOut el: @$els.body, cb: =>
         @setClosed()
-        @display = "none"
-        @$dispatch "closed"
-    open: -> @show()
-    close: -> @hide()
-    toggle: ->
+        @$emit "closed", @
+    open: ->
+      @$parent.closeAll(@) if @$parent.accordion
+      @show()
+    close: (sender) ->
+      return if sender? and sender == @
+      @hide()
+    toggle: (e) ->
+      if e?
+        return if e.defaultPrevented
+        e.preventDefault()
       if @opened
         @close()
       else
         @open()
-
-  events:
-    close: (sender) ->
-      if sender != @
-        @close()
-      return true
 </script>

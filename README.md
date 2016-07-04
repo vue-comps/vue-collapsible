@@ -37,23 +37,33 @@ components:
 For examples see [`dev/`](https://github.com/vue-comps/vue-collapsible/tree/master/dev).
 
 #### Props
-Collapsible
+##### Collapsible
 
 | Name | type | default | description |
 | ---:| --- | ---| --- |
 | accordion | Boolean | false | only one child opened at a time |
 | class | String | collapsible | class of the `ul`|
-
-Collapsible-item
-
-| Name | type | default | description |
-| ---:| --- | ---| --- |
-| is-opened | Boolean | false | (two-way) is child opened |
 | transition-in | function | no animation | used to animate the child. Arguments: `{el}` |
 | transition-out | function | no animation | used to animate the child. Arguments: `{el}` |
 | item-class | String | collapsible-item | class of the `li`|
 | header-class | String | collapsible-header | class of the header `div`|
 | body-class | String | collapsible-body | class of the body `div`|
+
+##### Collapsible-item
+
+| Name | type | default | description |
+| ---:| --- | ---| --- |
+| is-opened | Boolean | false | (two-way) is child opened |
+| stay-open | Boolean | false | (only with accordion) will stay open |
+
+#### Events on collapsible-item
+
+| Name | description |
+| ---:| --- |
+| before-open | fires before transition in |
+| opened | fires after transition in |
+| before-close | fires before transition out |
+| closed | fires after transition out |
 
 # Development
 Clone repository.

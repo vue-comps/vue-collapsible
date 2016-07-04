@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 .container
   p collapsible
   collapsible
@@ -16,12 +16,15 @@
     collapsible-item
       p(slot="header") header1
       p body 1
-    collapsible-item(is-active)
+    collapsible-item(stay-open)
       p(slot="header") header2
-      p body 2
-    collapsible-item
+      p body 2 / stay-open
+    collapsible-item(is-opened)
       p(slot="header") header3
-      p body 3
+      p body 3 / is-opened
+    collapsible-item
+      p(slot="header") header4
+      p body 4
   a(href="https://github.com/vue-comps/vue-collapsible/blob/master/dev/basic.vue") source
 </template>
 
