@@ -43,7 +43,7 @@ module.exports =
       default: "collapsible-body"
 
   data: ->
-    display: if @isActive then "block" else "none"
+    display: if @isOpened then "block" else "none"
 
   methods:
     show: ->
