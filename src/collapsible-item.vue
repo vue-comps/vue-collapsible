@@ -46,9 +46,10 @@ module.exports =
   methods:
     show: ->
       @setOpened()
-      @$emit "before-open", @
-      @$parent.transitionIn el: @$els.body, cb: =>
-        @$emit "opened", @
+      @$nextTick =>
+        @$emit "before-open", @
+        @$parent.transitionIn el: @$els.body, cb: =>
+          @$emit "opened", @
     hide: ->
       @$emit "before-close", @
       @$parent.transitionOut el: @$els.body, cb: =>
