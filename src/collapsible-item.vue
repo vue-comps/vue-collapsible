@@ -64,7 +64,8 @@ module.exports =
       if @opened
         if scroll and not @$parent.noScroll
           top = @$el.children[1].getBoundingClientRect().top
-          @$parent.scrollTransition(top)
+          if top < 0
+            @$parent.scrollTransition(top)
         @hide()
     toggle: (e) ->
       if e?

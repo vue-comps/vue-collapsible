@@ -90,6 +90,9 @@ template: "<collapsible transition='fade'>" +
 ```
 
 ## Changelog
+-  
+scroll bugfix  
+
 - 1.0.1  
 changed how scroll works  
 
