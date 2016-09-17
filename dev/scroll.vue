@@ -24,6 +24,10 @@ module.exports =
     "collapsible" : require "../src/collapsible.vue"
     "collapsible-item" : require "../src/collapsible-item.vue"
   methods:
-    scroll: (top, el) ->
-      Velocity el, "scroll", duration:500
+    scroll: (top) ->
+      body = document.body
+      docEl = document.documentElement
+      scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop
+      scrollTop += top
+      Velocity docEl, "scroll", duration:400, offset:scrollTop
 </script>

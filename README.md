@@ -48,7 +48,7 @@ item-class | String | `collapsible-item` | class of the `li`
 header-class | String | `collapsible-header` | class of the header `a`
 body-class | String | `collapsible-body` | class of the body `div`
 no-scroll | Boolean | false | disable scroll to top, on open of an item with accordion
-scroll-transition | Function | `(top) -> window?.scrollBy?(0,top)` | function which gets used for scrolling item back into view on opening. Arguments `top, element`
+scroll-transition | Function | `(top) -> window?.scrollBy?(0,top)` | function which gets used for scrolling item back into view on opening.
 
 ##### Collapsible-item
 
@@ -90,6 +90,8 @@ template: "<collapsible transition='fade'>" +
 ```
 
 ## Changelog
+- 1.0.1  
+changed how scroll works  
 
 - 1.0.0  
 changed header type from `div` to `a`  

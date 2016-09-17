@@ -34,12 +34,15 @@ module.exports =
       default: false
     "scrollTransition":
       type: Function
-      default: (top) ->
-        window?.scrollBy?(0,top)
+      default: (top) -> window?.scrollBy?(0,top)
 
   methods:
     closeAll: (sender) ->
-      for child in @$children
+      beforeSender = false
+      for child, index in @$children
+        if sender == child
+          beforeSender = true
+          continue
         if child.isCollapsibleItem and not child.stayOpen
-          child.close(sender)
+          child.close(not beforeSender)
 </script>

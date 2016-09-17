@@ -9,7 +9,6 @@ li(
     )
     slot(name="header")
   div(
-    v-el:body,
     v-if="isOpened",
     :transition="cTransition",
     :class="bodyClass"
@@ -48,6 +47,7 @@ module.exports =
       name ?= "default"
       @processTransition(name, @$parent.$parent)
       return name
+
   data: ->
     isCollapsibleItem: true
 
@@ -57,19 +57,15 @@ module.exports =
     hide: ->
       @setClosed()
     open: ->
+      @show()
       if @$parent.accordion
         @$parent.closeAll(@)
-        unless @$parent.noScroll
-          @$once "after-enter", =>
-            top = @$el.getBoundingClientRect().top
-            if top < 0
-              @$parent.scrollTransition(top,@$el)
-      @show()
-
-    close: (sender) ->
-      return if sender? and sender == @
-      @hide()
-
+    close: (scroll) ->
+      if @opened
+        if scroll and not @$parent.noScroll
+          top = @$el.children[1].getBoundingClientRect().top
+          @$parent.scrollTransition(top)
+        @hide()
     toggle: (e) ->
       if e?
         return if e.defaultPrevented
