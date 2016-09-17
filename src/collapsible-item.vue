@@ -1,25 +1,28 @@
 // out: ..
 <template lang="pug">
 li(
-  :class="itemClass"
+  :class="computedClass"
   )
-  div(
+  a(
     :class="headerClass",
     @click="toggle"
     )
-    slot(name="header") No header
+    slot(name="header")
   div(
     v-el:body,
     v-if="isOpened",
+    :transition="cTransition",
     :class="bodyClass"
     )
-    slot No body
+    slot
 </template>
 
 <script lang="coffee">
 module.exports =
   mixins: [
     require("vue-mixins/isOpened")
+    require("vue-mixins/class")
+    require("vue-mixins/transition")
   ]
 
   props:
@@ -28,7 +31,7 @@ module.exports =
       default: false
 
   computed:
-    itemClass: ->
+    mergeClass: ->
       tmp = [@$parent.itemClass]
       if @isOpened
         tmp.push "active"
@@ -39,28 +42,34 @@ module.exports =
         tmp.push "active"
       return tmp
     bodyClass: -> [@$parent.bodyClass]
-
+    cTransition: ->
+      name = @transition
+      name ?= @$parent.transition
+      name ?= "default"
+      @processTransition(name, @$parent.$parent)
+      return name
   data: ->
     isCollapsibleItem: true
 
   methods:
     show: ->
       @setOpened()
-      @$nextTick =>
-        @$emit "before-open", @
-        @$parent.transitionIn el: @$els.body, cb: =>
-          @$emit "opened", @
     hide: ->
-      @$emit "before-close", @
-      @$parent.transitionOut el: @$els.body, cb: =>
-        @setClosed()
-        @$emit "closed", @
+      @setClosed()
     open: ->
-      @$parent.closeAll(@) if @$parent.accordion
+      if @$parent.accordion
+        @$parent.closeAll(@)
+        unless @$parent.noScroll
+          @$once "after-enter", =>
+            top = @$el.getBoundingClientRect().top
+            if top < 0
+              @$parent.scrollTransition(top,@$el)
       @show()
+
     close: (sender) ->
       return if sender? and sender == @
       @hide()
+
     toggle: (e) ->
       if e?
         return if e.defaultPrevented

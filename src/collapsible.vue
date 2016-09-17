@@ -1,27 +1,25 @@
 // out: ..
 <template lang="pug">
 ul(
-  :class="[class]"
+  :class="computedClass"
   )
-  slot No content
+  slot
 </template>
 
 <script lang="coffee">
 module.exports =
-
+  mixins: [
+    require("vue-mixins/class")
+    require("vue-mixins/transition")
+  ]
   props:
-    "transitionIn":
-      type: Function
-      default: ({cb}) -> cb()
-    "transitionOut":
-      type: Function
-      default: ({cb}) -> cb()
+    "transition":
+      type: String
     "accordion":
       type: Boolean
       default: false
     "class":
-      type: String
-      default: "collapsible"
+      default: -> ["collapsible"]
     "itemClass":
       type: String
       default: "collapsible-item"
@@ -31,6 +29,13 @@ module.exports =
     "bodyClass":
       type: String
       default: "collapsible-body"
+    "noScroll":
+      type: Boolean
+      default: false
+    "scrollTransition":
+      type: Function
+      default: (top) ->
+        window?.scrollBy?(0,top)
 
   methods:
     closeAll: (sender) ->
