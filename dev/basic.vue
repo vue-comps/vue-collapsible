@@ -19,7 +19,7 @@
     collapsible-item(stay-open v-ref:ai2)
       p(slot="header") header2 / stay-open
       p body 2
-    collapsible-item(transition="collapsible")
+    collapsible-item(transition="collapsible2")
       p(slot="header") custom transition
       p body 3
     collapsible-item(is-opened v-ref:ai3)
@@ -37,7 +37,7 @@ module.exports =
     "collapsible" : require "../src/collapsible.vue"
     "collapsible-item" : require "../src/collapsible-item.vue"
   transitions:
-    collapsible:
+    collapsible2:
       css: false
       enter: (el, done) ->
         Velocity el, "slideDown",{

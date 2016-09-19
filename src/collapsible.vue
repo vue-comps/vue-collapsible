@@ -13,28 +13,29 @@ module.exports =
     require("vue-mixins/transition")
   ]
   props:
-    "transition":
-      type: String
-    "accordion":
+    accordion:
       type: Boolean
       default: false
-    "class":
+    class:
       default: -> ["collapsible"]
-    "itemClass":
+    itemClass:
       type: String
       default: "collapsible-item"
-    "headerClass":
+    headerClass:
       type: String
       default: "collapsible-header"
-    "bodyClass":
+    bodyClass:
       type: String
       default: "collapsible-body"
-    "noScroll":
+    noScroll:
       type: Boolean
       default: false
-    "scrollTransition":
+    scrollTransition:
       type: Function
       default: (top) -> window?.scrollBy?(0,top)
+    transition:
+      type: String
+      default: "collapsible"
 
   methods:
     closeAll: (sender) ->

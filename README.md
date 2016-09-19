@@ -42,13 +42,13 @@ For examples see [`dev/`](https://github.com/vue-comps/vue-collapsible/tree/mast
 Name | type | default | description
 ---:| --- | ---| ---
 accordion | Boolean | false | only one child opened at a time
-transition | String | - | name of a vue transition. [Detailed description](#transition)
+transition | String | "collapsible" | name of a vue transition. [Detailed description](#transition)
 class | String / Object / Array | [`collapsible`] | class of the `ul`
 item-class | String | `collapsible-item` | class of the `li`
 header-class | String | `collapsible-header` | class of the header `a`
 body-class | String | `collapsible-body` | class of the body `div`
 no-scroll | Boolean | false | disable scroll to top, on open of an item with accordion
-scroll-transition | Function | `(top) -> window?.scrollBy?(0,top)` | function which gets used for scrolling item back into view on opening.
+scroll-transition | Function | `(diff) -> window?.scrollBy?(0,diff)` | function which gets used for scrolling item back into view on opening.
 
 ##### Collapsible-item
 
@@ -90,8 +90,9 @@ template: "<collapsible transition='fade'>" +
 ```
 
 ## Changelog
--  
+- 1.1.0  
 scroll bugfix  
+set default transition  
 
 - 1.0.1  
 changed how scroll works  

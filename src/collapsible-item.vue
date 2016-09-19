@@ -25,9 +25,11 @@ module.exports =
   ]
 
   props:
-    "stayOpen":
+    stayOpen:
       type: Boolean
       default: false
+    transition:
+      type: String
 
   computed:
     mergeClass: ->
@@ -44,7 +46,6 @@ module.exports =
     cTransition: ->
       name = @transition
       name ?= @$parent.transition
-      name ?= "default"
       @processTransition(name, @$parent.$parent)
       return name
 
