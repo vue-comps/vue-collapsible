@@ -7,7 +7,9 @@ A simple collapsible / accordion.
 # Install
 
 ```sh
-npm install --save-dev vue-collapsible/
+npm install --save-dev vue-collapsible
+// vue@1.0
+npm install --save-dev vue-collapsible@1
 ```
 or include `build/bundle.js`.
 
