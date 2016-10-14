@@ -55,7 +55,7 @@ scroll-transition | Function | `(diff) -> window?.scrollBy?(0,diff)` | function 
 
 Name | type | default | description
 ---:| --- | ---| ---
-transition | String | (inherit from `collapsible`) | name of a reusable vue transition-group
+transition | String | (inherit from `collapsible`) | name of a reusable vue transition
 transition-name | String | (inherit from `collapsible`) | can be used for css transition
 is-opened | Boolean | `false` | is child opened
 stay-open | Boolean | `false` | (only with accordion) will stay open
