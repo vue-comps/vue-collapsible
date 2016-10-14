@@ -41,55 +41,56 @@ For examples see [`dev/`](https://github.com/vue-comps/vue-collapsible/tree/mast
 
 Name | type | default | description
 ---:| --- | ---| ---
-accordion | Boolean | false | only one child opened at a time
-transition | String | "collapsible" | name of a vue transition. [Detailed description](#transition)
-class | String / Object / Array | [`collapsible`] | class of the `ul`
+accordion | Boolean | `false` | only one child opened at a time
+transition | String | `collapsible-transition` | name of a reusable vue transition
+transition-name | String | `collapsible` | can be used for css transition
+class | String / Object / Array | `[collapsible]` | class of the `ul`
 item-class | String | `collapsible-item` | class of the `li`
 header-class | String | `collapsible-header` | class of the header `a`
 body-class | String | `collapsible-body` | class of the body `div`
-no-scroll | Boolean | false | disable scroll to top, on open of an item with accordion
+no-scroll | Boolean | `false` | disable scroll to top, on open of an item with accordion
 scroll-transition | Function | `(diff) -> window?.scrollBy?(0,diff)` | function which gets used for scrolling item back into view on opening.
 
 ##### Collapsible-item
 
 Name | type | default | description
 ---:| --- | ---| ---
-transition | String | (inherit from `collapsible`) | name of a vue transition. [Detailed description](#transition)
-is-opened | Boolean | false | (two-way) is child opened
-stay-open | Boolean | false | (only with accordion) will stay open
+transition | String | (inherit from `collapsible`) | name of a reusable vue transition-group
+transition-name | String | (inherit from `collapsible`) | can be used for css transition
+is-opened | Boolean | `false` | is child opened
+stay-open | Boolean | `false` | (only with accordion) will stay open
 
 #### Events on collapsible-item
 
 Name | description
 ---:| ---
-before-enter | will be called before open animation
-after-enter |  will be called when opened
-before-leave |  will be called before close animation
-after-leave |  will be called when closed
-toggled(isOpened:Boolean) | emitted when gets opened or closed. Alternative to use two-way `is-opened` prop
+toggled(`isOpened`:Boolean) | emitted when gets opened or closed.
 
 #### Transition
 
 You can provide a vue transition like this:
 ```js
-Vue.transition("fade",{
-  // your transition
-})
-// or in the instance:
-transitions: {
-  fade: {
-    // your transition
+Vue.component('collapsible-transition', {
+  functional: true
+  render: function(h,context) {
+    // overwrite name for css transition - you could also use the transition-name prop
+    context.data.attrs.name = "fade"
+    // disable css detection for js-only transition
+    context.data.props = {css: false}
+    // js transition hooks - put emitters inside if you need events on opening/closing
+    context.data.on = {
+      enter: ...
+    }
+    return h("transition",context.data,context.children)
   }
-}
-// usage:
-template: "<collapsible transition='fade'>" +
-    "<collapsible-item></collapsible-item>" +
-    "<collapsible-item transition='fade2'></collapsible-item>" +
-  "</collapsible>"
-// the first item will use fade and the second fade2
+})
 ```
 
 ## Changelog
+- 2.0.0  
+now compatible with vue 2.0.0  
+removed transition events - your transition needs to provide them now, if needed  
+
 - 1.1.0  
 scroll bugfix  
 set default transition  

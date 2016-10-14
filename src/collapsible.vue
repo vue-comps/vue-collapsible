@@ -10,7 +10,6 @@ ul(
 module.exports =
   mixins: [
     require("vue-mixins/class")
-    require("vue-mixins/transition")
   ]
   props:
     accordion:
@@ -34,6 +33,9 @@ module.exports =
       type: Function
       default: (top) -> window?.scrollBy?(0,top)
     transition:
+      type: String
+      default: "collapsible-transition"
+    transitionName:
       type: String
       default: "collapsible"
 

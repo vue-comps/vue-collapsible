@@ -8,20 +8,20 @@ li(
     @click="toggle"
     )
     slot(name="header")
-  div(
-    v-if="isOpened",
-    :transition="cTransition",
-    :class="bodyClass"
-    )
-    slot
+  transition(:is="cTransition", :name="cTransitionName")
+    div(
+      v-if="opened",
+      :class="bodyClass"
+      )
+      slot
 </template>
 
 <script lang="coffee">
 module.exports =
   mixins: [
-    require("vue-mixins/isOpened")
+    require("vue-mixins/isOpened2")
     require("vue-mixins/class")
-    require("vue-mixins/transition")
+    require("vue-mixins/transition2")
   ]
 
   props:
@@ -30,23 +30,28 @@ module.exports =
       default: false
     transition:
       type: String
+    transitionName:
+      type: String
 
   computed:
     mergeClass: ->
       tmp = [@$parent.itemClass]
-      if @isOpened
+      if @opened
         tmp.push "active"
       return tmp
     headerClass: ->
       tmp = [@$parent.headerClass]
-      if @isOpened
+      if @opened
         tmp.push "active"
       return tmp
     bodyClass: -> [@$parent.bodyClass]
     cTransition: ->
       name = @transition
       name ?= @$parent.transition
-      @processTransition(name, @$parent.$parent)
+      return @processTransition(name, parent: @$parent.$parent)
+    cTransitionName: ->
+      name = @transitionName
+      name ?= @$parent.transitionName
       return name
 
   data: ->
